@@ -1,0 +1,4 @@
+.table-view .column-header.column1 .label {
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+}
