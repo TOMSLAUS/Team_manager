@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import database.MyConnection;
 import database.Player;
 import database.Player.Builder;
 import javafx.application.Application;
@@ -82,13 +83,13 @@ public class MainController extends Application {
 	private Label label1;
 	@FXML
 	private Button refresh;
+	private boolean loggedin;
 
 
 
 
 	@FXML
 	public void initialize() {
-
 
 
 		TableViewSelectionModel<Player> selectionModel = playerTable.getSelectionModel();
@@ -98,7 +99,7 @@ public class MainController extends Application {
 		playerTable.setPlaceholder(new Label("No rows to display"));
 		ArrayList<Player> playerList = new ArrayList<Player>();
 		// Player player = new Player();
-		Connection con = Player.connect();
+		Connection con = MyConnection.connect();
 		Statement stmt;
 
 		try {
@@ -170,7 +171,7 @@ public class MainController extends Application {
 
 			try {
 
-				statement = Player.connect().prepareStatement("INSERT INTO Errors (errorId) VALUES (?)");
+				statement = MyConnection.connect().prepareStatement("INSERT INTO Errors (errorId) VALUES (?)");
 				;
 
 				statement.setString(1, headerText);
@@ -195,7 +196,7 @@ public class MainController extends Application {
 
 			try {
 
-				PreparedStatement prest = Player.connect().prepareStatement("DELETE FROM players where playerId=?");
+				PreparedStatement prest = MyConnection.connect().prepareStatement("DELETE FROM players where playerId=?");
 				prest.setInt(1, selectedPlayers.get(0).getPlayerId());
 				prest.executeUpdate();
 				initialize();

@@ -221,7 +221,7 @@ public class Player implements java.io.Serializable {
 	}
 
 
-
+/*
 	// Get connection from database
 	public static Connection connect() {
 		String url = "jdbc:mysql://sql240.main-hosting.eu:3306/", user = "u994816388_players",
@@ -235,7 +235,7 @@ public class Player implements java.io.Serializable {
 		}
 		return connection;
 	}
-
+*/
 
 
 
@@ -245,7 +245,7 @@ public class Player implements java.io.Serializable {
 		PreparedStatement statement = null;
 
 		try {
-			statement = this.connect().prepareStatement(
+			statement = MyConnection.connect().prepareStatement(
 					"INSERT INTO players (name, lastName,phoneNumber,jerseyNumber,birthDay,pricePerTime) VALUES (?,?,?,?,?,?)");
 			statement.setString(1, this.name);
 			statement.setString(2, this.lastName);
@@ -263,11 +263,11 @@ public class Player implements java.io.Serializable {
 
 	public void editPlayer() {
 
-		Connection connection;
+		
 		PreparedStatement statement = null;
 
 		try {
-			statement = this.connect().prepareStatement(
+			statement = MyConnection.connect().prepareStatement(
 					"UPDATE players SET name=? , lastName=? , phoneNumber=? , jerseyNumber=? , birthDay=? WHERE playerId=?");
 			;
 

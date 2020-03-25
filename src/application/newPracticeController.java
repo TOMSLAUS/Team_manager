@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
+
+import database.MyConnection;
 import database.Player;
 import database.Practice;
 import javafx.collections.FXCollections;
@@ -492,7 +494,7 @@ public class newPracticeController {
 		playerTable.setPlaceholder(new Label("No rows to display"));
 		ArrayList<Player> playerList = new ArrayList<Player>();
 		// Player player = new Player();
-		Connection con = Player.connect();
+		Connection con = MyConnection.connect();
 		Statement stmt;
 
 		try {

@@ -65,7 +65,7 @@ public Practice()
 	//#TODO Sataisīt datubāzē trigerus un lai ieliekas pareizi datubāzē.
 	public void addNewPractice2(LocalDate practiceDatePicker) {
 		
-		Connection con = Player.connect();
+		Connection con = MyConnection.connect();
 		PreparedStatement statement = null, statement2 = null;
 		Statement stm=null;
 		int lastPracticeId=0;
@@ -118,7 +118,7 @@ e.printStackTrace();
 	
 public void addNewPractice3(LocalDate practiceDatePicker) {
 		
-		Connection con = Player.connect();
+		Connection con = MyConnection.connect();
 		PreparedStatement statement = null, statement2 = null;
 		Statement stm=null;
 		int lastPracticeId=0;
@@ -177,7 +177,7 @@ e.printStackTrace();
 		
 		public void addNewPractice4(LocalDate practiceDatePicker) {
 			
-			Connection con = Player.connect();
+			Connection con = MyConnection.connect();
 			PreparedStatement statement = null, statement2 = null;
 			Statement stm=null;
 			int lastPracticeId=0;
@@ -240,29 +240,6 @@ e.printStackTrace();
 			} catch (Exception e) {
 	e.printStackTrace();
 			}
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 	}
 
 }
