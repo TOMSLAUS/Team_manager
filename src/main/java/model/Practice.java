@@ -20,20 +20,21 @@ public class Practice {
 	private int practiceId;
 	private LocalDate practiceDate;
 	private int numberOfLines;
-	public ArrayList<Player> players41 = new ArrayList<Player>();
-	public ArrayList<Player> players42 = new ArrayList<Player>();
-	public ArrayList<Player> players43 = new ArrayList<Player>();
-	public ArrayList<Player> players44 = new ArrayList<Player>();
-	public ArrayList<Player> players31 = new ArrayList<Player>();
-	public ArrayList<Player> players32 = new ArrayList<Player>();
-	public ArrayList<Player> players33 = new ArrayList<Player>();
-	public ArrayList<Player> players21 = new ArrayList<Player>();
-	public ArrayList<Player> players22 = new ArrayList<Player>();
+	private ArrayList<ArrayList<Player>> players = new ArrayList();
+	
 	User user = LoginController.user;
 	private DatePicker practiceDatePicker;
 	public Practice() {
 	}
 
+	public ArrayList getPlayerList() {
+		return players;
+	}
+	
+	public int getPlayerListSize() {
+		return players.size();
+	}
+	
 	public Practice(Builder builder) {
 		this.practiceId = builder.practiceId;
 		this.practiceDate = builder.practiceDate;
@@ -96,6 +97,12 @@ public class Practice {
 		return this.practiceDate;
 	}
 
+	public void addToPlayerList(ArrayList<Player> ... player) {
+		for (ArrayList i : player) {
+			players.add(i);
+			//System.out.println(i.get(0));
+		}
+	}
 
 	public static java.sql.Date convertToSqlDate(LocalDate date) {
 		return java.sql.Date.valueOf(date);

@@ -581,32 +581,36 @@ public class newPracticeController {
 			takeSnapShot(lines4Pane);
 			Practice practice = new Practice();
 
-
+			ArrayList<Player> players41 = new ArrayList<Player>();
+			ArrayList<Player> players42 = new ArrayList<Player>();
+			ArrayList<Player> players43 = new ArrayList<Player>();
+			ArrayList<Player> players44 = new ArrayList<Player>();
 
 			for (Player pla : practicePlayerTable41.getItems()) {
-				practice.players41.add(pla);
+				players41.add(pla);
 			}
 
 			for (Player pla : practicePlayerTable42.getItems()) {
-				practice.players42.add(pla);
+				players42.add(pla);
 			}
 
 			for (Player pla : practicePlayerTable43.getItems()) {
-				practice.players43.add(pla);
+				players43.add(pla);
 			}
 
 			for (Player pla : practicePlayerTable44.getItems()) {
-				practice.players44.add(pla);
+				players44.add(pla);
 			}
 
 			if (practiceDatePicker.getValue() == null) {
 				MainController.showError("Error", "To continue you need to select date");
 			}
-			else if (practice.players41.size() < 1||practice.players42.size()<1 || practice.players43.size()<1 || practice.players44.size()<1) {
+			else if ( players41.size() < 1|| players42.size()<1 || players43.size()<1 || players44.size()<1) {
 				MainController.showError("Error", "To continue you need to add players to the practice lineup.");
 			} else {
-				practice.setPracticeDate(practiceDatePicker.getValue());
-				practiceDAO.addNewPractice4(practice);
+				practice.setPracticeDate(practiceDatePicker.getValue().plusDays(1));
+				practice.addToPlayerList(players41,players42,players43,players44);
+				practiceDAO.addPractice(practice);
 				takeSnapShot(lines4Pane);
 			}
 			
@@ -618,26 +622,32 @@ public class newPracticeController {
 		if (lines3Pane.isVisible()) {
 			takeSnapShot(lines3Pane);
 			Practice practice = new Practice();
+			
+			ArrayList<Player> players31 = new ArrayList<Player>();
+			ArrayList<Player> players32 = new ArrayList<Player>();
+			ArrayList<Player> players33 = new ArrayList<Player>();
+			
 			for (Player pla : practicePlayerTable31.getItems()) {
-				practice.players31.add(pla);
+				players31.add(pla);
 			}
 
 			for (Player pla : practicePlayerTable32.getItems()) {
-				practice.players32.add(pla);
+				players32.add(pla);
 			}
 
 			for (Player pla : practicePlayerTable33.getItems()) {
-				practice.players33.add(pla);
+				players33.add(pla);
 			}
 			
 			if (practiceDatePicker.getValue() == null) {
 				MainController.showError("Error", "To continue you need to select date");
 			}
-			else if (practice.players31.size() < 1||practice.players32.size()<1 || practice.players33.size()<1) {
+			else if (players31.size() < 1 || players32.size()<1 || players33.size()<1) {
 				MainController.showError("Error", "To continue you need to add players to the practice lineup.");
 			} else {
-				practice.setPracticeDate(practiceDatePicker.getValue());
-				practiceDAO.addNewPractice3(practice);
+				practice.setPracticeDate(practiceDatePicker.getValue().plusDays(1));
+				practice.addToPlayerList(players31,players32,players33);
+				practiceDAO.addPractice(practice);
 				takeSnapShot(lines3Pane);
 			}
 		}
@@ -647,22 +657,27 @@ public class newPracticeController {
 		if (lines2Pane.isVisible()) {
 			Practice practice = new Practice();
 
+			ArrayList<Player> players21 = new ArrayList<Player>();
+			ArrayList<Player> players22 = new ArrayList<Player>();
 
 			for (Player pla : practicePlayerTable21.getItems()) {
-				practice.players21.add(pla);
+				players21.add(pla);
 			}
 
 			for (Player pla : practicePlayerTable22.getItems()) {
-				practice.players22.add(pla);
+				players22.add(pla);
 			}
 			if (practiceDatePicker.getValue() == null) {
 				MainController.showError("Error", "To continue you need to select date");
 			}
-			else if (practice.players21.size() < 1||practice.players22.size()<1) {
+			else if (players21.size() < 1|| players22.size()<1) {
 				MainController.showError("Error", "To continue you need to add players to the practice lineup.");
 			} else {
-				practice.setPracticeDate(practiceDatePicker.getValue());
-				practiceDAO.addNewPractice2(practice);
+				
+				practice.addToPlayerList(players21,players22);
+				
+				practice.setPracticeDate(practiceDatePicker.getValue().plusDays(1));
+				practiceDAO.addPractice(practice);
 				takeSnapShot(lines2Pane);
 			}
 		}
