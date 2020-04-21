@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import DAO.DAO;
+import DAO.PracticeDAO;
 import model.Player;
 import model.Practice;
 import javafx.collections.FXCollections;
@@ -63,7 +64,7 @@ public class newPracticeController {
 	ObservableList<Player> practiceData221;
 	ObservableList<String> practiceData;
 	static ObservableList<Player> selectedPlayers;
-
+	PracticeDAO practiceDAO =new PracticeDAO();
 
 	@FXML
 	private RadioButton radio4Lines;
@@ -604,7 +605,8 @@ public class newPracticeController {
 			else if (practice.players41.size() < 1||practice.players42.size()<1 || practice.players43.size()<1 || practice.players44.size()<1) {
 				MainController.showError("Error", "To continue you need to add players to the practice lineup.");
 			} else {
-				practice.addNewPractice4(practiceDatePicker.getValue());
+				practice.setPracticeDate(practiceDatePicker.getValue());
+				practiceDAO.addNewPractice4(practice);
 				takeSnapShot(lines4Pane);
 			}
 			
@@ -634,7 +636,8 @@ public class newPracticeController {
 			else if (practice.players31.size() < 1||practice.players32.size()<1 || practice.players33.size()<1) {
 				MainController.showError("Error", "To continue you need to add players to the practice lineup.");
 			} else {
-				practice.addNewPractice3(practiceDatePicker.getValue());
+				practice.setPracticeDate(practiceDatePicker.getValue());
+				practiceDAO.addNewPractice3(practice);
 				takeSnapShot(lines3Pane);
 			}
 		}
@@ -658,7 +661,8 @@ public class newPracticeController {
 			else if (practice.players21.size() < 1||practice.players22.size()<1) {
 				MainController.showError("Error", "To continue you need to add players to the practice lineup.");
 			} else {
-				practice.addNewPractice2(practiceDatePicker.getValue());
+				practice.setPracticeDate(practiceDatePicker.getValue());
+				practiceDAO.addNewPractice2(practice);
 				takeSnapShot(lines2Pane);
 			}
 		}
