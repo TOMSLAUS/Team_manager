@@ -95,6 +95,7 @@ public class MainController {
 		birthDayColumn.setCellValueFactory(new PropertyValueFactory<Player, String>("birthDayStr"));
 		playerTable.setItems(data);
 
+	/*	
 		playerTable.setRowFactory(tv -> {
 			TableRow<Player> row = new TableRow<>();
 			row.setOnMouseClicked(event -> {
@@ -107,8 +108,8 @@ public class MainController {
 					try {
 						root = FXMLLoader.load(getClass().getResource("/fxml/pastPractice.fxml"));
 						Stage stage = new Stage();
-						stage.setTitle("Add new player");
-						stage.setScene(new Scene(root, 450, 450));
+						stage.setTitle("Past practices");
+						stage.setScene(new Scene(root, 750, 750));
 						stage.show();
 					} catch (IOException e) {
 						showError("Error 0002", "Please try again.");
@@ -116,7 +117,7 @@ public class MainController {
 				}
 			});
 			return row;
-		});
+		});*/
 
 	}
 
@@ -195,7 +196,7 @@ public class MainController {
 			root = FXMLLoader.load(getClass().getResource("/fxml/pastPractices.fxml"));
 			Stage stage = new Stage();
 			stage.setTitle("Practices");
-			stage.setScene(new Scene(root, 450, 450));
+			stage.setScene(new Scene(root, 755, 450));
 			stage.show();
 		} catch (Exception e) {
 			//showError("Error 0002", "Please try again.");

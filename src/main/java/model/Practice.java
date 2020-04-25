@@ -93,9 +93,6 @@ public class Practice {
 		this.practiceDate = practiceDate;
 	}
 	
-	public LocalDate GetPracticeDate() {
-		return this.practiceDate;
-	}
 
 	public void addToPlayerList(ArrayList<Player> ... player) {
 		for (ArrayList i : player) {

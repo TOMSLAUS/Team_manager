@@ -18,6 +18,7 @@ public class Player implements java.io.Serializable {
 	private  int pricePerTime;
 	private  int moneyOwed;
 	private final int playerId;
+	private int line;
     //private final LocalDate firstGame; - idk what this is
 
 	// Constructor
@@ -119,6 +120,13 @@ public class Player implements java.io.Serializable {
 	}
 	public void setMoneyOwed(int moneyOwed) {
 		this.moneyOwed=moneyOwed;
+	}
+	
+	public int getLine() {
+		return line;
+	}
+	public void setLine(int line) {
+		this.line=line;
 	}
 
 	////// Builder//////////
