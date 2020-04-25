@@ -1,24 +1,17 @@
 package model;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-
-import controller.LoginController;
-import javafx.scene.control.DatePicker;
-import model.practiceAttendance.Builder;
-
 public class PracticeAttendance {
 
 	private int practiceId;
 	private int playerId;
 	private int line;
 	
-	public practiceAttendance() {
+	public PracticeAttendance() {
 	}
 
 	
 	
-	public practiceAttendance(Builder builder) {
+	public PracticeAttendance(Builder builder) {
 		this.practiceId = builder.practiceId;
 		this.playerId = builder.playerId;
 		this.line = builder.line;
@@ -44,8 +37,8 @@ public class PracticeAttendance {
 			return this;
 		}
 
-		public practiceAttendance build() {
-			practiceAttendance practice = new practiceAttendance(this);
+		public PracticeAttendance build() {
+			PracticeAttendance practice = new PracticeAttendance(this);
 			return practice;
 		}
 

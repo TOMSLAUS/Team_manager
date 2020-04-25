@@ -4,23 +4,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import DAO.DAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Pair;
 import model.Player;
 import model.Practice;
 import model.PracticeAttendance;
@@ -41,6 +34,7 @@ public class pastPracticesController {
 	private TableColumn<Player, String> column21 = new TableColumn<Player, String>();
 	@FXML
 	private TableColumn<Player, Integer> column22 = new TableColumn<Player, Integer>();
+	
 	User user = LoginController.user;
 	ObservableList<Practice> data;
 	ObservableList<Player> playerData;
@@ -78,6 +72,7 @@ public class pastPracticesController {
 
 		if(!selectedPractice.isEmpty()) {
 			fillPlayerTable();
+			System.out.println("0OK");
 		}
 		
 	}

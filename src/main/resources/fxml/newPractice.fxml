@@ -13,11 +13,7 @@
 
 <AnchorPane fx:id="anchorPane" prefHeight="751.0" prefWidth="823.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.newPracticeController">
    <children>
-      <ButtonBar fx:id="buttonBar" layoutX="7.0" layoutY="7.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="816.0">
-        <buttons>
-          <Button id="addPlayer" fx:id="addPracticePlayer" alignment="TOP_LEFT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="Add player" />
-        </buttons>
-      </ButtonBar>
+      <ButtonBar fx:id="buttonBar" layoutX="7.0" layoutY="7.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="816.0" />
       <TableView fx:id="playerTable" layoutX="35.0" layoutY="100.0" prefHeight="290.0" prefWidth="768.0">
         <columns>
           <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name" />
@@ -26,8 +22,6 @@
             <TableColumn fx:id="birthDayColumn" prefWidth="225.0" text="Birthday" />
         </columns>
       </TableView>
-      <Button fx:id="deletePlayer" layoutX="747.0" layoutY="65.0" mnemonicParsing="false" text="Delete" />
-      <Button fx:id="refresh" layoutX="677.0" layoutY="65.0" mnemonicParsing="false" text="refresh" />
       <RadioButton fx:id="radio4Lines" layoutX="323.0" layoutY="419.0" mnemonicParsing="false" onAction="#select4Line" text="4 lines" />
       <RadioButton fx:id="radio3Lines" layoutX="386.0" layoutY="419.0" mnemonicParsing="false" onAction="#select3Line" text="3 lines" />
       <RadioButton fx:id="radio2Lines" layoutX="450.0" layoutY="419.0" mnemonicParsing="false" onAction="#select2Line" text="2 lines" />
@@ -91,7 +85,7 @@
             </Pane>
          </children>
       </StackPane>
-      <Button fx:id="createpractice" layoutX="541.0" layoutY="65.0" mnemonicParsing="false" onAction="#createPractice" text="Create new practice" />
+      <Button fx:id="createpractice" layoutX="689.0" layoutY="66.0" mnemonicParsing="false" onAction="#createPractice" text="Create new practice" />
       <DatePicker fx:id="practiceDatePicker" layoutX="575.0" layoutY="415.0" />
       <Label layoutX="618.0" layoutY="390.0" text="Practice date" />
    </children>

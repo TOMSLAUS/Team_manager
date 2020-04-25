@@ -52,7 +52,7 @@ public class PracticeDAO {
 						
 						statement.setInt(1, players.get(i).get(j).getPlayerId());
 						statement.setInt(2, lastPracticeId);
-						statement.setInt(3, i);
+						statement.setInt(3, i+1);
 						statement.executeUpdate();
 						
 					} catch (Exception e) {
