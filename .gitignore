@@ -224,3 +224,4 @@ Desktop.ini
 .eslintcache
 
 pom.xml
+src/main/resources/property/ftp.properties
