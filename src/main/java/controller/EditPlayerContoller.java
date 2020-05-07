@@ -65,8 +65,7 @@ public class EditPlayerContoller {
 			editablePlayer.setPhoneNumber(editPlayerPhoneNumber.getText());
 			editablePlayer.setJerseyNumber(editPlayerJerseyNumber.getText());
 			editablePlayer.setBirthDay(editPlayerBirthday.getValue());
-			String[] params = new String[1];
-			playerDAO.update(editablePlayer, params);
+			playerDAO.update(editablePlayer);
 
 		    Stage stage = (Stage) editPlayerButton.getScene().getWindow();
 		    // do what you have to do

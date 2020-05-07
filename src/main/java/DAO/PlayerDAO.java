@@ -14,7 +14,7 @@ public class PlayerDAO implements DAO<Player> {
 	User user= LoginController.user;
 	
     @Override
-    public void update(Player player, String[] params){
+    public void update(Player player){
         PreparedStatement statement = null;
 
         try {
@@ -22,6 +22,7 @@ public class PlayerDAO implements DAO<Player> {
 
             statement.setString(1, player.getName());
             statement.setString(2, player.getLastName());
+            System.out.println(player.getLastName());
             // Picture statement should go here!!!
             // TODO
             statement.setString(3, player.getPhoneNumber());
@@ -65,4 +66,10 @@ public class PlayerDAO implements DAO<Player> {
             e.printStackTrace();
         }
     }
+
+	@Override
+	public void update(Player t, String[] params) {
+		// TODO Auto-generated method stub
+		
+	}
 }

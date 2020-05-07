@@ -19,7 +19,7 @@ public class Player implements java.io.Serializable {
 	private  int moneyOwed;
 	private final int playerId;
 	private int line;
-    //private final LocalDate firstGame; - idk what this is
+    //private final LocalDate firstGame;
 
 	// Constructor
 	public Player(PlayerBuilder builder) {
@@ -53,7 +53,7 @@ public class Player implements java.io.Serializable {
 	public String getLastName() {
 		return lastName;
 	}	
-	public void setLastName(String lastname) {
+	public void setLastName(String lastName) {
 		this.lastName=lastName;
 	}
 	

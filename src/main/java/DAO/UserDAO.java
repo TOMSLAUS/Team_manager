@@ -74,6 +74,12 @@ public class UserDAO implements DAO<User> {
                     }
 					return false;
         }
+
+		@Override
+		public void update(Player player) {
+			// TODO Auto-generated method stub
+			
+		}
     }
 
 
