@@ -34,7 +34,7 @@ public class pastPracticesController {
 	private TableColumn<Player, String> column21 = new TableColumn<Player, String>();
 	@FXML
 	private TableColumn<Player, Integer> column22 = new TableColumn<Player, Integer>();
-	
+
 	User user = LoginController.user;
 	ObservableList<Practice> data;
 	ObservableList<Player> playerData;
@@ -43,6 +43,7 @@ public class pastPracticesController {
 	@FXML
 	public void initialize() {
 
+		column1.setSortType(TableColumn.SortType.DESCENDING);
 		TableView.TableViewSelectionModel<Practice> selectionModel = practiceTable.getSelectionModel();
 		selectionModel.setSelectionMode(SelectionMode.SINGLE);
 		selectedPractice = selectionModel.getSelectedItems();
@@ -70,11 +71,10 @@ public class pastPracticesController {
 		column2.setCellValueFactory(new PropertyValueFactory<String, String>("numberOfLines"));
 		practiceTable.setItems(data);
 
-		if(!selectedPractice.isEmpty()) {
+		if (!selectedPractice.isEmpty()) {
 			fillPlayerTable();
-			System.out.println("0OK");
 		}
-		
+
 	}
 
 	public void fillPlayerTable() {
@@ -82,39 +82,37 @@ public class pastPracticesController {
 		ArrayList<PracticeAttendance> practiceAttendanceList = new ArrayList<PracticeAttendance>();
 		ArrayList<Player> playerList = new ArrayList<Player>();
 
+		PreparedStatement st;
+		try {
+			st = DAO.connect().prepareStatement("SELECT * FROM players WHERE practiceId=?;");
+			st = DAO.connect().prepareStatement("SELECT * FROM practiceAttendance WHERE practiceId=?;");
+			st.setInt(1, selectedPractice.get(0).getPracticeId());
+			ResultSet rs = st.executeQuery();
 
-			PreparedStatement st;
-			try {
+			while (rs.next()) {
 
-				st = DAO.connect().prepareStatement("SELECT * FROM practiceAttendance WHERE practiceId=?;");
-				st.setInt(1, selectedPractice.get(0).getPracticeId());
-				ResultSet rs = st.executeQuery();
+				practiceAttendanceList.add(new PracticeAttendance.Builder().setPracticeId(rs.getInt(1))
+						.setPlayerId(rs.getInt(2)).setLine(rs.getInt(3)).build());
+				// practiceAttendees.put(rs.getInt(1), rs.getInt(2));
+			}
+
+			st = DAO.connect().prepareStatement("SELECT * FROM players WHERE playerId=?;");
+
+			for (int i = 0; i < practiceAttendanceList.size(); i++) {
+				st.setInt(1, practiceAttendanceList.get(i).getPlayerId());
+				rs = st.executeQuery();
 
 				while (rs.next()) {
-
-					practiceAttendanceList.add(new PracticeAttendance.Builder().setPracticeId(rs.getInt(1))
-							.setPlayerId(rs.getInt(2)).setLine(rs.getInt(3)).build());
-					// practiceAttendees.put(rs.getInt(1), rs.getInt(2));
+					playerList.add(new Player.PlayerBuilder().setPlayerId(rs.getInt(1)).setName(rs.getString(3))
+							.setLastName(rs.getString(4)).setPhoneNumber(rs.getString(6))
+							.setJerseyNumber(rs.getString(7)).setBirthDay(rs.getDate(12).toLocalDate())
+							.setBirthDayStr(rs.getString(12)).build());
 				}
-
-				st = DAO.connect().prepareStatement("SELECT * FROM players WHERE playerId=?;");
-
-				for (int i = 0; i < practiceAttendanceList.size(); i++) {
-					st.setInt(1, practiceAttendanceList.get(i).getPlayerId());
-					rs = st.executeQuery();
-
-					while (rs.next()) {
-						playerList.add(new Player.PlayerBuilder().setPlayerId(rs.getInt(1)).setName(rs.getString(3))
-								.setLastName(rs.getString(4)).setPhoneNumber(rs.getString(6))
-								.setJerseyNumber(rs.getString(7)).setBirthDay(rs.getDate(12).toLocalDate())
-								.setBirthDayStr(rs.getString(12)).build());
-					}
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				// showError("Error 0004", "Please try again.");
 			}
-		
+		} catch (Exception e) {
+			e.printStackTrace();
+			// showError("Error 0004", "Please try again.");
+		}
 
 		for (int i = 0; i < practiceAttendanceList.size(); i++) {
 			for (int j = 0; j < playerList.size(); j++) {
@@ -123,7 +121,7 @@ public class pastPracticesController {
 				}
 			}
 		}
-		
+
 		playerData = FXCollections.observableArrayList(playerList);
 		column21.setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
 		column22.setCellValueFactory(new PropertyValueFactory<Player, Integer>("line"));

@@ -60,7 +60,7 @@ public class PlayerDAO implements DAO<Player> {
             statement.setInt(1, id);
             statement.setInt(2, player.getPricePerTime());
             statement.executeUpdate();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             //Main.showError("Error 0005", "Please try again.");
             e.printStackTrace();
         }

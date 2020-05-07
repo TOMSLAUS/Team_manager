@@ -181,8 +181,9 @@ public class MainController {
 			stage.setTitle("Add new player");
 			stage.setScene(new Scene(root, 450, 450));
 			stage.show();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			showError("Error 0002", "Please try again.");
+			e.printStackTrace();
 		}
 
 	}

@@ -1,8 +1,16 @@
 package controller;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+
+import com.sun.javafx.logging.Logger;
+
 import DAO.PlayerDAO;
 import model.Player;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -11,6 +19,9 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class AddPlayerController {
 
@@ -34,12 +45,19 @@ public class AddPlayerController {
 	private Label speletajsSaglabats;
 	@FXML
 	private Button addPlayerButton;
-//	@FXML
-////	private Main mainWindow;
-
-
-
-
+	@FXML
+	private Button pictureButton;
+	/*
+	@FXML
+	FileChooser fileChooser = new FileChooser();
+	Window owner = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
+	 
+	
+@FXML
+void getPicture(ActionEvent event) {
+	  File selectedFile = fileChooser.showOpenDialog(owner);
+}
+	*/ 
 	@FXML
 	void addPlayerFunction(ActionEvent event) {
 
@@ -57,7 +75,7 @@ public class AddPlayerController {
 
 			alert.showAndWait();
 			return;
-			// #TODO izveidot logu, kurā izmet "ievadi vārdu vai uzvārdu..."
+			// #TODO izveidot logu, kurÄ� izmet "ievadi vÄ�rdu vai uzvÄ�rdu..."
 		}
 
 		// LocalDate lc=addPlayerBirthday.getValue();
