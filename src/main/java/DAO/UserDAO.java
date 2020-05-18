@@ -4,7 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import model.Player;
 import model.User;
 
 public class UserDAO implements DAO<User> {
@@ -75,11 +74,7 @@ public class UserDAO implements DAO<User> {
 					return false;
         }
 
-		@Override
-		public void update(Player player) {
-			// TODO Auto-generated method stub
-			
-		}
+	
     }
 
 
