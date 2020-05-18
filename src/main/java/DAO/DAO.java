@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import model.Player;
 
 public interface DAO<T> {
 
@@ -42,4 +43,5 @@ public interface DAO<T> {
 	void update(T t, String[] params);
 	void save(T t);
 
+	void update(Player player);
 }

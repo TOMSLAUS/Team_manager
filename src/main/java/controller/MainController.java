@@ -1,133 +1,253 @@
 package controller;
 
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-import com.lynden.gmapsfx.GoogleMapView;
-import com.lynden.gmapsfx.javascript.object.GoogleMap;
-import com.lynden.gmapsfx.javascript.object.InfoWindow;
-import com.lynden.gmapsfx.javascript.object.InfoWindowOptions;
-import com.lynden.gmapsfx.javascript.object.LatLong;
-import com.lynden.gmapsfx.javascript.object.MapOptions;
-import com.lynden.gmapsfx.MapComponentInitializedListener;
-import com.lynden.gmapsfx.javascript.object.MapTypeIdEnum;
-import com.lynden.gmapsfx.javascript.object.Marker;
-import com.lynden.gmapsfx.javascript.object.MarkerOptions;
-
-import java.net.URL;
-
+import DAO.DAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
-import model.Product;
-import model.Product.Builder;
+import javafx.scene.input.DataFormat;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import model.Player;
+import model.User;
 
+import java.io.IOException;
+import java.sql.*;
+import java.util.ArrayList;
 
+public class MainController {
+	ObservableList<Player> data;
+	static ObservableList<Player> selectedPlayers;
+	public static DataFormat format = new DataFormat(
+			"JAVA_DATAFLAVOR:application/x-my-mime-type; class=com.model.Player",
+			"application/x-my-mime-type; class=com.model.Player");
 
-public class MainController implements Initializable, MapComponentInitializedListener {
-	
-	
 	@FXML
-	ObservableList<Product> data;
+	private Button pastPracticesButton;
 	@FXML
-	private TableView<Product> productTable;
+	private Button editPlayer;
 	@FXML
-	private TableColumn<Product, String> nameColumn = new TableColumn<Product, String>();
+	private Button deletePlayer;
 	@FXML
-	private TableColumn<Product, Double> priceColumn = new TableColumn<Product, Double>();
+	private Button addPlayer;
 	@FXML
-    private GoogleMapView mapView;
-    
-    private GoogleMap map;
-    
+	private Button addPlayerSave;
+	@FXML
+	private ButtonBar buttonBar;
+	@FXML
+	private Button createPractice;
+	@FXML
+	private AnchorPane anchorPane;
+	@FXML
+	private TableView<Player> playerTable;
+	@FXML
+	private TableColumn<Player, String> nameColumn = new TableColumn<Player, String>();
+	@FXML
+	private TableColumn<Player, String> lastNameColumn = new TableColumn<Player, String>();
+	@FXML
+	private TableColumn<Player, String> phoneNumberColumn = new TableColumn<Player, String>();
+	@FXML
+	private TableColumn<Player, String> birthDayColumn = new TableColumn<Player, String>();
+	@FXML
+	private Label label1;
+	@FXML
+	private Button refresh;
+	LoginController loginController = new LoginController();
+	User user = LoginController.user;
 
-    public void initialize(URL url, ResourceBundle rb) {
-        mapView.addMapInializedListener(this);
-        nameColumn.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
-        priceColumn.setCellValueFactory(new PropertyValueFactory<Product, Double>("price"));
-        
-        
-        Builder product = new Product.Builder()
-        		.name("Bulciņa")
-        		.price(3.12);
-        
-    }    
+	@FXML
+	public void initialize() {
 
-    public void mapInitialized() {
+		TableView.TableViewSelectionModel<Player> selectionModel = playerTable.getSelectionModel();
+		selectionModel.setSelectionMode(SelectionMode.SINGLE);
+		selectedPlayers = selectionModel.getSelectedItems();
 
-        
-        
-        //Set the initial properties of the map.
-        MapOptions mapOptions = new MapOptions();
-        
-        mapOptions.center(new LatLong(56.954335, 24.117999))
-                .mapType(MapTypeIdEnum.ROADMAP)
-                .overviewMapControl(false)
-                .panControl(false)
-                .rotateControl(false)
-                .scaleControl(false)
-                .streetViewControl(false)
-                .zoomControl(false)
-                .zoom(12);
-                   
-        map = mapView.createMap(mapOptions);
-        ArrayList<Product> productList = new ArrayList<Product>();
-        productList.add(new Product.Builder()
-        		.name("builciņa")
-        		.price(3.12)
-        		.coordinates(new LatLong(56.953212, 24))
-        		.build());
-        
-        
-        productList.add(new Product.Builder()
-        		.name("desa")
-        		.price(3.12)
-        		.coordinates(new LatLong(56.96, 24))
-        		.build());
-        
-        
-        productList.add(new Product.Builder()
-        		.name("maize")
-        		.price(3.12)
-        		.coordinates(new LatLong(56.84, 24))
-        		.build());
-        
-        
-        
-        
-        
-        
-        //adds items to the table
-        data = FXCollections.observableArrayList(productList);
-        productTable.setItems(data);
- 
-        
-        //adds markers to the map
-        ArrayList<MarkerOptions> markerOptions = new ArrayList<MarkerOptions>();
-        ArrayList<Marker> marker = new ArrayList<Marker>();
-        ArrayList<InfoWindowOptions> infoWindowOptions = new ArrayList<InfoWindowOptions>();
-       
- 
-        for(int i=0; i<productList.size();i++) {
-        	markerOptions.add(new MarkerOptions());
-        	markerOptions.set(i, markerOptions.get(i).position(productList.get(i).getCoordinates()));
-        	marker.add(new Marker(markerOptions.get(i)));
-        	 map.addMarker(marker.get(i));
-        /*
-        	 infoWindowOptions.add(new InfoWindowOptions());
-        	 infoWindowOptions.set(i, infoWindowOptions.get(i).content("<h2>" + productList.get(i).getName() + "</h2>"
-        			 + "Cena: " + productList.get(i).getPrice()));
-        	 InfoWindow windoww = new InfoWindow(infoWindowOptions.get(0));
-        	 windoww.open(map, marker.get(0));
-*/
+		playerTable.setPlaceholder(new Label("No rows to display"));
+		ArrayList<Player> playerList = new ArrayList<Player>();
+		PreparedStatement st;
 
-        }
-        
+		try {
 
+			st = DAO.connect().prepareStatement("select * from players WHERE teamId=?");
+			st.setInt(1, user.getTeamId());
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
 
-    }
+				playerList.add(new Player.PlayerBuilder().setPlayerId(rs.getInt(1)).setName(rs.getString(3))
+						.setLastName(rs.getString(4)).setPhoneNumber(rs.getString(6)).setJerseyNumber(rs.getString(7))
+						.setBirthDay(rs.getDate(12).toLocalDate()).setBirthDayStr(rs.getString(12)).build());
+			}
+			data = FXCollections.observableArrayList(playerList);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			showError("Error 0004", "Please try again.");
+		}
+
+		nameColumn.setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
+		lastNameColumn.setCellValueFactory(new PropertyValueFactory<Player, String>("lastName"));
+		phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<Player, String>("phoneNumber"));
+		birthDayColumn.setCellValueFactory(new PropertyValueFactory<Player, String>("birthDayStr"));
+		playerTable.setItems(data);
+
+	/*	
+		playerTable.setRowFactory(tv -> {
+			TableRow<Player> row = new TableRow<>();
+			row.setOnMouseClicked(event -> {
+				if (event.getClickCount() == 2 && (!row.isEmpty())) {
+					Player rowData = row.getItem();
+					System.out.println(rowData.getPlayerId());
+
+					Parent root;
+
+					try {
+						root = FXMLLoader.load(getClass().getResource("/fxml/pastPractice.fxml"));
+						Stage stage = new Stage();
+						stage.setTitle("Past practices");
+						stage.setScene(new Scene(root, 750, 750));
+						stage.show();
+					} catch (IOException e) {
+						showError("Error 0002", "Please try again.");
+					}
+				}
+			});
+			return row;
+		});*/
+
+	}
+
+	public static void showError(String headerText, String contentText) {
+
+		Alert alert = new Alert(Alert.AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText(headerText);
+		alert.setContentText(contentText);
+		alert.showAndWait();
+
+		// Uploads error with error code to database for error reporting
+		if (headerText.matches(".*\\d+.*")) {
+
+			PreparedStatement statement = null;
+
+			try {
+				statement = DAO.connect().prepareStatement("INSERT INTO Errors (errorId) VALUES (?)");
+				;
+
+				statement.setString(1, headerText);
+				statement.executeUpdate();
+			} catch (SQLException e) {
+				// System.out.println("Error creating statement");
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@FXML
+	void deletePlayer() {
+
+		if (selectedPlayers.isEmpty()) {
+
+			showError("Please select player you wish to delete!", null);
+
+		} else {
+
+			try {
+
+				PreparedStatement prest = DAO.connect().prepareStatement("DELETE FROM players where playerId=?");
+				prest.setInt(1, selectedPlayers.get(0).getPlayerId());
+				prest.executeUpdate();
+				initialize();
+			} catch (SQLException e) {
+				showError("Error 0001", "Please try again.");
+				e.printStackTrace();
+			}
+			System.out.println("Record deleted successfully");
+		}
+	}
+
+	@FXML
+	void openAddPlayerWindow(ActionEvent event) {
+
+		Parent root;
+
+		try {
+			root = FXMLLoader.load(getClass().getResource("/fxml/addPlayer.fxml"));
+			Stage stage = new Stage();
+			stage.setTitle("Add new player");
+			stage.setScene(new Scene(root, 450, 450));
+			stage.show();
+		} catch (Exception e) {
+			showError("Error 0002", "Please try again.");
+			e.printStackTrace();
+		}
+
+	}
+
+	@FXML
+	void openPastPracticesWindow(ActionEvent event) {
+
+		Parent root;
+
+		try {
+			root = FXMLLoader.load(getClass().getResource("/fxml/pastPractices.fxml"));
+			Stage stage = new Stage();
+			stage.setTitle("Practices");
+			stage.setScene(new Scene(root, 755, 450));
+			stage.show();
+		} catch (Exception e) {
+			//showError("Error 0002", "Please try again.");
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	static Player getSelectedPlayer() {
+		return selectedPlayers.get(0);
+	}
+
+	@FXML
+	void openEditPlayerWindow(ActionEvent event) {
+
+		if (selectedPlayers.isEmpty()) {
+			showError("Please select player you wish to edit!", null);
+		} else {
+
+			Parent root;
+			try {
+				root = FXMLLoader.load(getClass().getResource("/fxml/EditPlayer.fxml"));
+				Stage stage = new Stage();
+				stage.setTitle("Edit player");
+				stage.setScene(new Scene(root, 450, 450));
+				stage.show();
+
+			} catch (IOException e) {
+				showError("Error 0003", "Please try again.");
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@FXML
+	void openNewPracticeWindow(ActionEvent event) {
+
+		Parent root;
+
+		try {
+			root = FXMLLoader.load(getClass().getResource("/fxml/newPractice.fxml"));
+			Stage stage = new Stage();
+			stage.setTitle("New practice");
+			stage.setScene(new Scene(root, 850, 850));
+			stage.show();
+
+		} catch (IOException e) {
+			showError("Error 0007", "Please try again.");
+			e.printStackTrace();
+		}
+	}
+
 }

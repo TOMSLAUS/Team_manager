@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.lynden.gmapsfx.GoogleMapView?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="662.0" prefWidth="379.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+<AnchorPane fx:id="anchorPane" prefHeight="781.0" prefWidth="826.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
    <children>
-      <TableView fx:id="productTable" layoutY="452.0" prefHeight="214.0" prefWidth="379.0">
+      <ButtonBar fx:id="buttonBar" layoutX="7.0" layoutY="7.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="816.0">
+        <buttons>
+          <Button id="addPlayer" fx:id="addPlayer" alignment="TOP_LEFT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#openAddPlayerWindow" text="Add player" />
+        </buttons>
+      </ButtonBar>
+      <TableView fx:id="playerTable" layoutX="35.0" layoutY="100.0" prefHeight="662.0" prefWidth="763.0">
         <columns>
-          <TableColumn id="nameColumn" fx:id="nameColumn" prefWidth="274.0" text="Nosaukums" />
-          <TableColumn id="productColumn" fx:id="priceColumn" prefWidth="101.0" text="Cena" />
+          <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name" />
+          <TableColumn fx:id="lastNameColumn" prefWidth="225.0" text="Lastname" />
+            <TableColumn fx:id="phoneNumberColumn" prefWidth="225.0" text="Phone number" />
+            <TableColumn fx:id="birthDayColumn" prefWidth="225.0" text="Birthday" />
         </columns>
       </TableView>
-      <Button layoutX="65.0" mnemonicParsing="false" text="Button" />
-      <GoogleMapView fx:id="mapView" layoutY="66.0" prefHeight="414.0" prefWidth="379.0" style="-fx-border-color: black;" />
+      <Button fx:id="deletePlayer" layoutX="747.0" layoutY="65.0" mnemonicParsing="false" onAction="#deletePlayer" text="Delete" />
+      <Button fx:id="refresh" layoutX="677.0" layoutY="65.0" mnemonicParsing="false" onAction="#initialize" text="refresh" />
+      <Button fx:id="editPlayer" layoutX="583.0" layoutY="65.0" mnemonicParsing="false" onAction="#openEditPlayerWindow" text="Edit Player" />
+      <Button fx:id="createPractice" layoutX="476.0" layoutY="65.0" mnemonicParsing="false" onAction="#openNewPracticeWindow" text="New practice" />
+      <Button fx:id="pastPracticesButton" layoutX="374.0" layoutY="65.0" mnemonicParsing="false" onAction="#openPastPracticesWindow" text="Practice" />
    </children>
 </AnchorPane>
